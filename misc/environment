@@ -1,0 +1,16 @@
+# /etc/environment
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+SDL_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+QT4=IM_MODULE=fcitx
+CLUTTER_IM_MODULE=fcitx
+GLFW_IM_MODULE=fcitx
+
+#precise scroll on firefox
+MOZ_USE_XINPUT2=1
