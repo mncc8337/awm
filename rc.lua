@@ -43,7 +43,7 @@ beautiful.init(theme)
 -- global vars
 MODKEY = "Mod4"
 ALTKEY = "Mod1"
-TERMINAL = "wezterm"
+TERMINAL = "tym"
 FILEMAN = "nemo"
 APPLAUNCHER = "rofi -show drun"
 PROMPTRUNNER = "rofi -show run"
