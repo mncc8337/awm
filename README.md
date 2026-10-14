@@ -25,7 +25,7 @@ this config needs: (optional are marked with (*))
 - [awesome](https://awesomewm.org/) obviously
 - [zsh](https://www.zsh.org/) (*), shell
 - [nemo](https://github.com/linuxmint/nemo/) (*), GUI file explorer
-- [wezterm](https://wezterm.org/) (*), terminal emulator
+- [tym](https://github.com/endaaman/tym) (*), terminal emulator
 - [rofi](https://github.com/davatorium/rofi) (*), app launcher
 - xorg-xrandr for xrandr and [arandr](https://github.com/haad/arandr) (*)
 - [playerctl](https://github.com/altdesktop/playerctl) (*), control mpris2 based media, needed for `signal/playerctl.lua` module
