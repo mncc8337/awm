@@ -1,9 +1,6 @@
 # awesome wm configs
 my awesome wm configs
 
-`vertical-bar` branch
-![ps](assets/2026-09-19_19-21-41.png)
-
 `horizontal-bar` branch
 ![ps](assets/2024-12-27_00-44-47.png)
 
