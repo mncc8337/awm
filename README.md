@@ -1,11 +1,6 @@
-# awesome wm configs
-my awesome wm configs
-
-`vertical-bar` branch
+# somewm configs
+my somewm configs, adapted from the old awesomewm config
 ![ps](assets/2026-09-19_19-21-41.png)
-
-`horizontal-bar` branch
-![ps](assets/2024-12-27_00-44-47.png)
 
 
 wallpapers are not included. though you can find them on [my main repo](https://github.com/mncc8337/.dotfiles). should be on `./wallpaper`
@@ -19,6 +14,12 @@ wallpapers are not included. though you can find them on [my main repo](https://
 ```
 - wallpapers are loaded from "$DOTFILES/wallpaper/" by default, change it on `theme/init.lua`
 - missings file refs can be found on [the main dotfiles repo](https://github.com/mncc8337/.dotfiles), it is because this configs originally lives in `.config/awesome` of that repo and had been splitted to be a separated repo
+
+### changes compared to the awm branch
+- built in lockscreen configs
+- slider are not yet working (they causing crashes when reloading)
+- `signal/screenshot.lua` now uses the `screenshot` script in the dotfiles repo.
+- added input devices config `config/input.lua`
 
 ## dependecies
 this config needs: (optional are marked with (*))
