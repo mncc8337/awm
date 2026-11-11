@@ -19,31 +19,26 @@ wallpapers are not included. though you can find them on [my main repo](https://
 - built in lockscreen configs
 - slider are not yet working (they causing crashes when reloading)
 - `signal/screenshot.lua` now uses the `screenshot` script in the dotfiles repo.
-- added input devices config `config/input.lua`
+- added input devices config `config/input.lua`, `signal/touchpad.lua` is now obsolete (until i figure out a way to refactor)
 
 ## dependecies
 this config needs: (optional are marked with (*))
-- [awesome](https://awesomewm.org/) obviously
+- [somewm-git](https://github.com/trip-zip/somewm) obviously
 - [zsh](https://www.zsh.org/) (*), shell
 - [nemo](https://github.com/linuxmint/nemo/) (*), GUI file explorer
 - [tym](https://github.com/endaaman/tym) (*), terminal emulator
 - [rofi](https://github.com/davatorium/rofi) (*), app launcher
-- xorg-xrandr for xrandr and [arandr](https://github.com/haad/arandr) (*)
 - [playerctl](https://github.com/altdesktop/playerctl) (*), control mpris2 based media, needed for `signal/playerctl.lua` module
 - [themix-theme-oomox](https://github.com/themix-project/oomox-gtk-theme) (*), dynamic theming, needed for the `theme.colorscheme.dynamic` theme
-- [snixembed](https://git.sr.ht/~steef/snixembed/) (*), for displaying `StatusNotifierItem` systray protocol because awesome does not support it
 - libpulse (pulseaudio) or pipewire-pulse (pipewire) (*), for pactl, needed for `signal/pulseaudio.lua` module
-- xorg-xinput for `xinput` (*), needed for `signal/touchpad.lua` module
-- [picom](https://github.com/yshui/picom) (*)
-- [maim](https://github.com/naelstrof/maim) and [slop](https://github.com/naelstrof/slop) (already comes with main iirc) (*), for the `signal/screenshot.lua` module
-- [i3lock-color](https://github.com/Raymo111/i3lock-color) and [xidlehook](https://gitlab.com/jD91mZM2/xidlehook) (*), used in the lock command in `rc.lua`
-- [xclip](https://github.com/astrand/xclip) (*), though kinda necessary for X11
+- [grim](https://gitlab.freedesktop.org/emersion/grim) and [slurp](https://github.com/emersion/slurp) (*), for the `signal/screenshot.lua` module
+- [wl-clipboard](https://github.com/bugaevc/wl-clipboard) (*), though kinda necessary for wayland
 - these fonts are used by default (*)
     - cascadia-code-nerd
     - ibm-plex
 
 ```sh
-yay -S zsh nemo wezterm rofi playerctl themix-theme-oomox-git pipewire-pulse main slop snixembed xorg-xinput xorg-xrandr arandr
+yay -S somewm-git
+yay -S zsh nemo tym rofi playerctl themix-theme-oomox-git pipewire-pulse grim slurp
 yay -S ttf-cascadia-code-nerd ttf-ibm-plex bibata-cursor-theme
-yay -S awesome-git xorg-xinput picom-git maim i3lock-color xidlehook xclip
 ```
