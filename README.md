@@ -4,9 +4,6 @@ my awesome wm configs
 `vertical-bar` branch
 ![ps](assets/2026-09-19_19-21-41.png)
 
-`horizontal-bar` branch
-![ps](assets/2024-12-27_00-44-47.png)
-
 
 wallpapers are not included. though you can find them on [my main repo](https://github.com/mncc8337/.dotfiles). should be on `./wallpaper`
 
