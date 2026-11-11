@@ -12,8 +12,12 @@ awful.keyboard.append_global_keybindings({
               {description = "reload awesome", group = "awesome"}),
     awful.key({ MODKEY, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
-    awful.key({ MODKEY }, "i", function() awful.spawn.with_shell(TERMINAL .. " -e nvim ~/.config/awesome/") end,
+    awful.key({ MODKEY }, "i", function() awful.spawn.with_shell(TERMINAL .. " -e nvim ~/.config/somewm/") end,
               {description = "edit awesome config file", group = "awesome"}),
+    awful.key({ MODKEY, "Control", "Shift" }, "l", awesome.lock,
+              {description = "lock screen", group = "awesome"}),
+    awful.key({ MODKEY, "Shift" }, "i", function() require("somewm.inspector").toggle() end,
+              {description = "open inspector", group = "awesome"}),
 })
 
 -- focus related keybindings
@@ -169,7 +173,7 @@ client.connect_signal("request::default_keybindings", function()
             {description = "toggle fullscreen", group = "client"}),
         awful.key({ MODKEY,           }, "x",      function(c) c:kill() end,
                   {description = "close", group = "client"}),
-        awful.key({ MODKEY, "Control" }, "space",  awful.client.floating.toggle,
+        awful.key({ MODKEY, "Control" }, "space",  function(c) c.floating = not c.floating end,
                   {description = "toggle floating", group = "client"}),
         awful.key({ MODKEY, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
                   {description = "move to master", group = "client"}),
@@ -302,7 +306,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ }, "XF86Favorites", function() awesome.emit_signal("controlpanel::toggle") end,
         {description = "open control panel", group = "media"}),
-    awful.key({ }, "XF86ScreenSaver", function() awesome.emit_signal("backlight::force_turn_off") end,
+    awful.key({ }, "XF86ScreenSaver", awesome.dpms_off,
         {description = "turn off screen", group = "hardware"}),
 
     -- app launching
@@ -314,8 +318,6 @@ awful.keyboard.append_global_keybindings({
               {description = "show app launcher", group = "launcher"}),
     awful.key({ MODKEY }, "r", function() awful.spawn(PROMPTRUNNER) end,
               {description = "run prompt", group = "launcher"}),
-    awful.key({ MODKEY, "Control", "Shift" }, "l", function() awful.spawn(LOCKER) end,
-              {description = "lock screen", group = "launcher"}),
     awful.key({ MODKEY }, "e", function() awful.spawn(FILEMAN) end,
               {description = "open file manager", group = "launcher"}),
 })

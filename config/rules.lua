@@ -1,5 +1,6 @@
 local awful = require("awful")
 local ruled = require("ruled")
+local beautiful = require("beautiful")
 
 local ruled_count = 0.0
 local client_in_a_row = 10
@@ -21,8 +22,6 @@ local function offset_centered(c)
     })
 end
 
--- {{{ Rules
--- Rules to apply to new clients.
 ruled.client.connect_signal("request::rules", function()
     -- All clients will match this rule.
     ruled.client.append_rule {
@@ -83,4 +82,24 @@ ruled.client.connect_signal("request::rules", function()
     --     properties = { screen = 1, tag = "2" }
     -- }
 end)
--- }}}
+
+ruled.notification.connect_signal('request::rules', function()
+    -- All notifications will match this rule.
+    ruled.notification.append_rule {
+        rule       = { },
+        properties = {
+            screen = awful.screen.preferred,
+            implicit_timeout = 5,
+        }
+    }
+
+    -- Set different colors for urgent notifications.
+    ruled.notification.append_rule {
+        rule = { urgency = 'critical' },
+        properties = {
+            bg = beautiful.term.color[2],
+            fg = beautiful.fg_normal,
+        }
+    }
+end)
+

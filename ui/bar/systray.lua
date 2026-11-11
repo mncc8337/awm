@@ -3,6 +3,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 
 local expanded = true
+local available_width = beautiful.wibar_width - 2 * beautiful.wibar_padding
 
 local expand_button = wibox.widget {
     widget = wibox.widget.textbox,
@@ -10,13 +11,14 @@ local expand_button = wibox.widget {
     markup = "",
     valign = "center",
     halign = "center",
-    forced_width = beautiful.wibar_width - 2 * beautiful.wibar_padding,
-    forced_height = beautiful.wibar_width - 2 * beautiful.wibar_padding,
+    forced_width = available_width,
+    forced_height = available_width,
 }
 
 local systray = wibox.widget {
     widget = wibox.widget.systray,
     horizontal = false,
+    base_size = available_width,
 }
 
 local function toggle_expand()

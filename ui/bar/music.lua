@@ -12,7 +12,8 @@ local music_widget = wibox.widget {
 local music_icon = wibox.widget {
     widget = wibox.widget.textbox,
     font = beautiful.font_type.icon .. " 12",
-    markup = "󰝚"
+    halign = "center",
+    markup = "󰝚",
 }
 
 local function turn_off()

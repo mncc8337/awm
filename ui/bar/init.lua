@@ -32,12 +32,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         width = beautiful.wibar_width,
         widget = {
             widget = wibox.container.margin,
-            margins = {
-                top = beautiful.wibar_padding,
-                bottom = beautiful.wibar_padding,
-                left = beautiful.wibar_padding,
-                right = beautiful.wibar_padding,
-            },
+            margins = beautiful.wibar_padding,
             {
                 layout = wibox.layout.align.vertical,
                 -- left widgets

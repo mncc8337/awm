@@ -2,30 +2,6 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
-local ruled = require("ruled")
-local gears = require("gears")
-
-naughty.config.defaults.border_width = beautiful.notification_border_width
-
-ruled.notification.connect_signal('request::rules', function()
-    -- All notifications will match this rule.
-    ruled.notification.append_rule {
-        rule       = { },
-        properties = {
-            screen = awful.screen.preferred,
-            implicit_timeout = 5,
-        }
-    }
-
-    -- Set different colors for urgent notifications.
-    ruled.notification.append_rule {
-        rule = { urgency = 'critical' },
-        properties = {
-            bg = beautiful.term.color[2],
-            fg = beautiful.fg_normal,
-        }
-    }
-end)
 
 naughty.connect_signal("request::display", function(n)
     local msg_box = wibox.widget {
@@ -39,6 +15,7 @@ naughty.connect_signal("request::display", function(n)
                 {
                     widget = naughty.widget.title,
                     halign = "center",
+                    valign = "center",
                 },
                 {
                     widget = naughty.widget.message,
@@ -48,42 +25,6 @@ naughty.connect_signal("request::display", function(n)
             }
         }
     }
-
-    local img_box = nil
-    if n.icon then
-        -- find strategy to display icon
-        local surf = gears.surface(n.icon)
-        local width, height = gears.surface.get_size(surf)
-
-        local scaled_width = beautiful.notification_maximum_icon_width
-        local scaled_height = height / width * scaled_width
-
-        local ideal_height = nil
-        local ideal_width = nil
-
-        if scaled_height > beautiful.notification_maximum_icon_height then
-            ideal_height = beautiful.notification_maximum_icon_height
-            ideal_width = width / height * ideal_height
-        else
-            ideal_width = scaled_width
-            ideal_height = scaled_height
-        end
-
-        -- using the normal imagebox because naughty.widget.icon only support square image
-        img_box = {
-            widget = wibox.container.constraint,
-            strategy = "max",
-            width = ideal_width,
-            height = ideal_height,
-            {
-                widget = wibox.widget.imagebox,
-                image = n.icon,
-                resize = true,
-                halign = "center",
-                valign = "center"
-            }
-        }
-    end
 
     local action_list = {
         widget = naughty.list.actions,
@@ -120,22 +61,18 @@ naughty.connect_signal("request::display", function(n)
 
     local notif = naughty.layout.box {
         notification = n,
-        widget_template = {
-            widget = naughty.container.background,
-            id = "background_role",
-            {
-                widget  = wibox.container.margin,
-                margins = beautiful.notification_margin,
-                {
-                    layout = wibox.layout.fixed.vertical,
-                    {
-                        layout = wibox.layout.align.horizontal,
-                        img_box,
-                        msg_box,
-                        nil,
-                    },
-                    action_list
-                }
+        widget_template = wibox.widget {
+            widget = wibox.container.margin,
+            margins = beautiful.notification_margin,
+            wibox.widget {
+                layout = wibox.layout.fixed.vertical,
+                wibox.widget {
+                    layout = wibox.layout.align.horizontal,
+                    naughty.widget.icon,
+                    msg_box,
+                    nil,
+                },
+                action_list
             }
         }
     }

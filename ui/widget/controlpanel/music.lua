@@ -16,6 +16,42 @@ local volume_slider_hovering = false
 local current_player = ""
 local prev_notif
 
+local function generate_fallback_image()
+    local lgi = require("lgi")
+    local cairo = lgi.cairo
+    local pango = lgi.Pango
+    local pangocairo = lgi.PangoCairo
+    local gears = require("gears")
+
+    local width, height = 350, 350
+    local img_surface = cairo.ImageSurface.create(cairo.Format.ARGB32, width, height)
+    local cr = cairo.Context(img_surface)
+
+    -- draw background
+    cr:set_source(gears.color(beautiful.fg_normal))
+    cr:paint()
+
+    -- setup the font
+    local font_desc = pango.FontDescription.from_string(beautiful.font_type.icon .. " normal 128")
+    local layout = pangocairo.create_layout(cr)
+    layout:set_font_description(font_desc)
+    layout:set_markup("󰲸", -1)
+
+    local _, logical_rect = layout:get_pixel_extents()
+    local text_width = logical_rect.width
+    local text_height = logical_rect.height
+
+    -- centering, with 50px padding on each side
+    local x = 50 + (width - text_width - 100) / 2 - logical_rect.x
+    local y = 50 + (height - text_height - 100) / 2 - logical_rect.y
+
+    cr:set_source(gears.color(beautiful.bg_systray))
+    cr:move_to(x, y)
+    pangocairo.show_layout(cr, layout)
+    return img_surface
+end
+local fallback_img = generate_fallback_image()
+
 local music_title = wibox.widget {
     widget = wibox.widget.textbox,
     font = beautiful.font_type.normal .. " bold 16",
@@ -30,7 +66,7 @@ local music_detail = wibox.widget {
 
 local music_art = wibox.widget {
     widget = wibox.widget.imagebox,
-    image = FALLBACK_ART_IMG,
+    image = fallback_img,
     forced_height = helper.dpi(100),
 }
 
@@ -108,7 +144,7 @@ local music_buttons = wibox.widget {
 local function turn_off()
     music_title.markup = "N/A"
     music_detail.markup = ""
-    music_art.image = FALLBACK_ART_IMG
+    music_art.image = fallback_img
     music_progressbar.value = 0
     music_time_elapsed.markup = "N/A"
     music_time_total.markup = "N/A"
@@ -145,7 +181,7 @@ playerctl:connect_signal("metadata", function(_, title, artist, art_path, album,
 
     music_playbutton.markup = ""
 
-    local image_file = FALLBACK_ART_IMG
+    local image_file = fallback_img
     if #art_path ~= 0 then
         -- check if file size is larger than 0
         -- if the size is 0 then it is garbage

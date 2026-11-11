@@ -186,11 +186,10 @@ theme.build = function()
     -- notification_[bg|fg]
     -- notification_[width|height|margin]
     -- notification_[border_color|border_width|shape|opacity]
+    theme.notification_width = 0 -- override somewm's strict notification width, setting it to 0 seems to let the actual widget decide the size
     theme.notification_font = theme.font_type.normal .. " 10"
     theme.notification_margin = theme.common_margin
     theme.notification_spacing = theme.useless_gap
-    theme.notification_maximum_icon_width = dpi(100)
-    theme.notification_maximum_icon_height = dpi(80)
     theme.notification_minimum_action_width = dpi(100)
     theme.notification_border_width = theme.border_width / 2
     theme.notification_border_color = theme.border_color_marked

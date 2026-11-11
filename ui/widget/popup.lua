@@ -64,7 +64,7 @@ local function popup_maker(
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = beautiful.common_padding,
-                    popup_icon, popup_slider,
+                    popup_icon, -- popup_slider,
                 },
             },
         },

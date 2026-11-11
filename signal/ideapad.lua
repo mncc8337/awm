@@ -42,19 +42,6 @@ awesome.connect_signal("ideapad::set_profile", function(prof)
     current_profile = prof
 end)
 
--- awesome.connect_signal("ideapad::set_conservation_mode", function(active)
---     local str = nil
---     if active then
---         str = "1"
---     else
---         str = "0"
---     end
---
---     ideapad_acpi:set_feature_data("conservation_mode", str, function(out, err, _, code)
---         require("naughty").notify{message=out .. " " .. err .. " " .. code}
---     end)
--- end)
-
 -- check if the module is available
 awful.spawn.easy_async_with_shell("if lsmod | grep -wq ideapad_laptop; then echo 1; else 0; fi", function(out)
     out = out:sub(1, -2)

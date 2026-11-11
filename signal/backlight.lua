@@ -17,7 +17,7 @@
 local awful = require("awful")
 local helper = require("helper")
 
-local min_brightness = 0.0 -- [0, 100]
+local min_brightness = 10.0 -- [0, 100]
 local steep_factor = 10 -- (0, +inf)
 
 local max_raw = 0
@@ -33,18 +33,22 @@ local backlight_acpi = helper.acpi {
     dynamic_features = {},
 }
 
+local function brightness_func(r, max_r, exp)
+    return math.log(r / max_r * exp + 1.0) / math.log(exp + 1.0) * 100.0
+end
+
+local function inv_brightness_func(perc, max_r, exp)
+    return math.floor(((exp + 1.0) ^ (perc / 100.0) - 1.0) / exp * max_r)
+end
+
 local apply_brightness = helper.rate_limited_call(0.01, function()
     if brightness_percentage < min_brightness then
         brightness_percentage = min_brightness
     end
 
-    local raw_b = math.floor(((steep_factor + 1.0) ^ (brightness_percentage / 100.0) - 1.0) / steep_factor * max_raw)
+    local raw_b = inv_brightness_func(brightness_percentage, max_raw, steep_factor)
     backlight_acpi:set_feature_data("brightness", raw_b)
     awesome.emit_signal("backlight::brightness", brightness_percentage)
-end)
-
-awesome.connect_signal("backlight::force_turn_off", function()
-    awful.spawn("xset dpms force off")
 end)
 
 awesome.connect_signal("backlight::set_brightness", function(percent)
@@ -72,7 +76,7 @@ backlight_acpi:get_all_features_data(function(features)
     if raw_b == 0 then
         brightness_percentage = 80
     else
-        brightness_percentage = math.log(raw_b / max_raw * steep_factor + 1.0) / math.log(steep_factor + 1.0) * 100.0
+        brightness_percentage = brightness_func(raw_b, max_raw, steep_factor)
     end
     apply_brightness.call()
 end)
