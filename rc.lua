@@ -90,7 +90,7 @@ awesome.set_idle_timeout("lock", 900, function()
 end)
 
 require("ui.widget.popup")
--- require("ui.widget.controlpanel")
+require("ui.widget.controlpanel")
 
 -- Enable sloppy focus, so that focus follows mouse.
 -- client.connect_signal("mouse::enter", function(c)

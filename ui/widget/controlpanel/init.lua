@@ -56,17 +56,12 @@ local panel = awful.popup {
     screen = awful.screen.focused(),
     border_width = beautiful.border_width / 2,
     border_color = beautiful.border_color_marked,
-    placement = function(d)
-        awful.placement.bottom_left(d, {
-            honor_workarea = true,
-            margins = {
-                top = 0,
-                bottom = beautiful.common_margin,
-                left = beautiful.common_margin,
-                right = 0,
-            },
-        })
-    end,
+    placement = awful.placement.bottom_left,
+    offset = {
+        x = beautiful.common_margin + beautiful.wibar_width,
+        y = -beautiful.common_margin,
+    },
+    hide_on_rightclick = true,
     widget = {
         widget = wibox.container.constraint,
         width = helper.dpi(400),
