@@ -21,7 +21,7 @@ awful.spawn.with_shell(". ~/.autostart")
 -- colorscheme.tint("#dd716f", 0.4)
 -- colorscheme.tint("#cac7ff", 0.9)
 -- colorscheme.tint("#d1edff", 0.9)
-local colorscheme = require("theme.colorscheme.gruvbox")
+local colorscheme = require("theme.colorscheme.nord-light")
 
 local theme = require("theme")
 theme.set_colorscheme(colorscheme)
@@ -31,7 +31,7 @@ theme.save_json_config()
 -- run this after changing theme
 -- theme.build_gtk_theme()
 
-theme.wallpaper = theme.wallpaper_path .. "IMG_0795.JPG"
+theme.wallpaper = theme.wallpaper_path .. "birbs.png"
 theme.wallpaper_crop = {
     top = 0,
     left = 0,
